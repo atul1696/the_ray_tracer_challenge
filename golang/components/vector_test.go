@@ -19,27 +19,27 @@ func TestVector(t *testing.T) {
 	}
 }
 
-func TestVectorAddVector(t *testing.T) {
+func TestVectorAdd(t *testing.T) {
 	v1 := NewVector(3, -2, 5)
 	v2 := NewVector(-2, 3, 1)
-	actual := v1.AddVector(v2)
+	actual := v1.Add(v2)
 	expected := NewVector(1, 1, 6)
 	if actual != expected {
-		t.Errorf("%+v.AddVector(%+v) = %+v, got %+v", v1, v2, expected, actual)
+		t.Errorf("%+v.Add(%+v) = %+v, got %+v", v1, v2, expected, actual)
 	}
 }
 
-func TestVectorSubtractVector(t *testing.T) {
+func TestVectorSubtract(t *testing.T) {
 	v1 := NewVector(3, 2, 1)
 	v2 := NewVector(5, 6, 7)
-	actual := v1.SubtractVector(v2)
+	actual := v1.Subtract(v2)
 	expected := NewVector(-2, -4, -6)
 	if actual != expected {
-		t.Errorf("%+v.SubtractVector(%+v) = %+v, got %+v", v1, v2, expected, actual)
+		t.Errorf("%+v.Subtract(%+v) = %+v, got %+v", v1, v2, expected, actual)
 	}
 }
 
-func TestNegate(t *testing.T) {
+func TestVectorNegate(t *testing.T) {
 	v := NewVector(1, -2, 3)
 	actual := v.Negate()
 	expected := NewVector(-1, 2, -3)
@@ -48,7 +48,7 @@ func TestNegate(t *testing.T) {
 	}
 }
 
-func TestMutiplyScalar(t *testing.T) {
+func TestVectorMutiplyScalar(t *testing.T) {
 	v := NewVector(1, -2, 3)
 	factor := 3.5
 	actual := v.MultiplyScalar(factor)
@@ -58,7 +58,7 @@ func TestMutiplyScalar(t *testing.T) {
 	}
 }
 
-func TestDivideScalar(t *testing.T) {
+func TestVectorDivideScalar(t *testing.T) {
 	v := NewVector(1, -2, 3)
 	factor := float64(2)
 	actual := v.DivideScalar(factor)
@@ -126,12 +126,12 @@ func TestCrossProduct(t *testing.T) {
 	actual := CrossProduct(v1, v2)
 	expected := NewVector(-1, 2, -1)
 	if !expected.Equals(actual) {
-		t.Errorf("Cross(%+v, %+v) = %f, got %f", v1, v2, expected, actual)
+		t.Errorf("CrossProduct(%+v, %+v) = %f, got %f", v1, v2, expected, actual)
 	}
 
 	actual = CrossProduct(v2, v1)
 	expected = NewVector(1, -2, 1)
 	if !expected.Equals(actual) {
-		t.Errorf("Cross(%+v, %+v) = %f, got %f", v1, v2, expected, actual)
+		t.Errorf("CrossProduct(%+v, %+v) = %f, got %f", v1, v2, expected, actual)
 	}
 }

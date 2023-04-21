@@ -29,13 +29,13 @@ func TestPointAddVector(t *testing.T) {
 	}
 }
 
-func TestPointSubtractPoint(t *testing.T) {
+func TestPointSubtract(t *testing.T) {
 	p1 := NewPoint(3, 2, 1)
 	p2 := NewPoint(5, 6, 7)
-	actual := p1.SubtractPoint(p2)
+	actual := p1.Subtract(p2)
 	expected := NewVector(-2, -4, -6)
 	if actual != expected {
-		t.Errorf("%+v.SubtractPoint(%+v) = %+v, got %+v", p1, p2, expected, actual)
+		t.Errorf("%+v.Subtract(%+v) = %+v, got %+v", p1, p2, expected, actual)
 	}
 }
 
