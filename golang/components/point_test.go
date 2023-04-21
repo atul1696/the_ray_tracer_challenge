@@ -9,13 +9,13 @@ func TestPoint(t *testing.T) {
 	
 	point := NewPoint(x, y, z)
 	if point.X != x { 
-		t.Errorf("tuple.X = %f, got %f", x, point.X)
+		t.Errorf("point.X = %f, got %f", x, point.X)
 	}
 	if point.Y != y { 
-		t.Errorf("tuple.Y = %f, got %f", y, point.Y)
+		t.Errorf("point.Y = %f, got %f", y, point.Y)
 	}
 	if point.Z != z { 
-		t.Errorf("tuple.Z = %f, got %f", z, point.Z)
+		t.Errorf("point.Z = %f, got %f", z, point.Z)
 	}
 }
 

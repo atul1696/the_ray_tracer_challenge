@@ -9,13 +9,13 @@ func TestVector(t *testing.T) {
 
 	vector := NewVector(x, y, z)
 	if vector.X != x {
-		t.Errorf("tuple.X = %f, got %f", x, vector.X)
+		t.Errorf("vector.X = %f, got %f", x, vector.X)
 	}
 	if vector.Y != y {
-		t.Errorf("tuple.Y = %f, got %f", y, vector.Y)
+		t.Errorf("vector.Y = %f, got %f", y, vector.Y)
 	}
 	if vector.Z != z {
-		t.Errorf("tuple.Z = %f, got %f", z, vector.Z)
+		t.Errorf("vector.Z = %f, got %f", z, vector.Z)
 	}
 }
 
