@@ -1,4 +1,4 @@
-package components
+package ray_tracer
 
 type Point struct {
 	X, Y, Z float64

@@ -1,4 +1,4 @@
-package components
+package ray_tracer
 
 import (
 	"math"
