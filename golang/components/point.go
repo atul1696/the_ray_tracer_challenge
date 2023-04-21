@@ -9,15 +9,15 @@ func NewPoint(X, Y, Z float64) Point {
 }
 
 func (p Point) AddVector(v Vector) Point {
-	return NewPoint(p.X + v.X, p.Y + v.Y, p.Z + v.Z)
+	return NewPoint(p.X+v.X, p.Y+v.Y, p.Z+v.Z)
 }
 
 func (p Point) SubtractPoint(p1 Point) Vector {
-	return NewVector(p.X - p1.X, p.Y - p1.Y, p.Z - p1.Z)
+	return NewVector(p.X-p1.X, p.Y-p1.Y, p.Z-p1.Z)
 }
 
 func (p Point) SubtractVector(v Vector) Point {
-	return NewPoint(p.X - v.X, p.Y - v.Y, p.Z - v.Z)
+	return NewPoint(p.X-v.X, p.Y-v.Y, p.Z-v.Z)
 }
 
 func (p Point) Equals(p1 Point) bool {

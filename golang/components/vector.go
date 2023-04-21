@@ -17,11 +17,11 @@ func (v Vector) Equals(v1 Vector) bool {
 }
 
 func (v Vector) AddVector(v1 Vector) Vector {
-	return NewVector(v.X + v1.X, v.Y + v1.Y, v.Z + v1.Z)
+	return NewVector(v.X+v1.X, v.Y+v1.Y, v.Z+v1.Z)
 }
 
 func (v Vector) SubtractVector(v1 Vector) Vector {
-	return NewVector(v.X - v1.X, v.Y - v1.Y, v.Z - v1.Z)
+	return NewVector(v.X-v1.X, v.Y-v1.Y, v.Z-v1.Z)
 }
 
 func (v Vector) Negate() Vector {
@@ -29,7 +29,7 @@ func (v Vector) Negate() Vector {
 }
 
 func (v Vector) MultiplyScalar(factor float64) Vector {
-	return NewVector(v.X * factor, v.Y * factor, v.Z * factor)
+	return NewVector(v.X*factor, v.Y*factor, v.Z*factor)
 }
 
 func (v Vector) DivideScalar(factor float64) Vector {
@@ -37,22 +37,22 @@ func (v Vector) DivideScalar(factor float64) Vector {
 }
 
 func (v Vector) Magnitude() float64 {
-	return math.Sqrt(v.X * v.X + v.Y * v.Y + v.Z * v.Z)
+	return math.Sqrt(v.X*v.X + v.Y*v.Y + v.Z*v.Z)
 }
 
 func (v Vector) Normalize() Vector {
 	mag := v.Magnitude()
-	return NewVector(v.X / mag, v.Y / mag, v.Z / mag)
+	return NewVector(v.X/mag, v.Y/mag, v.Z/mag)
 }
 
 func DotProduct(v1, v2 Vector) float64 {
-	return v1.X * v2.X + v1.Y * v2.Y + v1.Z * v2.Z
+	return v1.X*v2.X + v1.Y*v2.Y + v1.Z*v2.Z
 }
 
 func CrossProduct(v1, v2 Vector) Vector {
 	return NewVector(
-		v1.Y * v2.Z - v1.Z * v2.Y,
-		v1.Z * v2.X - v1.X * v2.Z,
-		v1.X * v2.Y - v1.Y * v2.X,
+		v1.Y*v2.Z-v1.Z*v2.Y,
+		v1.Z*v2.X-v1.X*v2.Z,
+		v1.X*v2.Y-v1.Y*v2.X,
 	)
 }

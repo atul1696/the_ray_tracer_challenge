@@ -6,15 +6,15 @@ import (
 
 func TestPoint(t *testing.T) {
 	x, y, z := 4.3, -4.2, 3.1
-	
+
 	point := NewPoint(x, y, z)
-	if point.X != x { 
+	if point.X != x {
 		t.Errorf("point.X = %f, got %f", x, point.X)
 	}
-	if point.Y != y { 
+	if point.Y != y {
 		t.Errorf("point.Y = %f, got %f", y, point.Y)
 	}
-	if point.Z != z { 
+	if point.Z != z {
 		t.Errorf("point.Z = %f, got %f", z, point.Z)
 	}
 }

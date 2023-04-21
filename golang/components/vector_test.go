@@ -60,7 +60,7 @@ func TestMutiplyScalar(t *testing.T) {
 
 func TestDivideScalar(t *testing.T) {
 	v := NewVector(1, -2, 3)
-	factor := float64(2);
+	factor := float64(2)
 	actual := v.DivideScalar(factor)
 	expected := NewVector(0.5, -1, 1.5)
 	if actual != expected {
@@ -68,11 +68,11 @@ func TestDivideScalar(t *testing.T) {
 	}
 }
 
-func TestMagnitude(t *testing.T){
+func TestMagnitude(t *testing.T) {
 	var tests = []struct {
-		x float64
-		y float64
-		z float64
+		x        float64
+		y        float64
+		z        float64
 		expected float64
 	}{
 		{1, 0, 0, 1},
@@ -85,13 +85,13 @@ func TestMagnitude(t *testing.T){
 		v := NewVector(test.x, test.y, test.z)
 		if actual := v.Magnitude(); !AlmostEqual(test.expected, actual) {
 			t.Errorf("%+v.Magnitude() = %+v, got %+v", v, test.expected, actual)
-		} 
+		}
 	}
 }
 
 func TestNormalize(t *testing.T) {
 	var tests = []struct {
-		v Vector
+		v        Vector
 		expected Vector
 	}{
 		{NewVector(4, 0, 0), NewVector(1, 0, 0)},
@@ -105,7 +105,7 @@ func TestNormalize(t *testing.T) {
 		mag := actual.Magnitude()
 		if !AlmostEqual(1, mag) {
 			t.Errorf("%+v.Magnitude() = %+v, got %+v", actual, 1, mag)
-		} 
+		}
 	}
 }
 
