@@ -83,7 +83,7 @@ func TestMagnitude(t *testing.T) {
 	}
 	for _, test := range tests {
 		v := NewVector(test.x, test.y, test.z)
-		if actual := v.Magnitude(); !AlmostEqual(test.expected, actual) {
+		if actual := v.Magnitude(); !almostEqual(test.expected, actual) {
 			t.Errorf("%+v.Magnitude() = %+v, got %+v", v, test.expected, actual)
 		}
 	}
@@ -103,7 +103,7 @@ func TestNormalize(t *testing.T) {
 			t.Errorf("%+v.Normalize() = %+v, got %+v", test.v, test.expected, actual)
 		}
 		mag := actual.Magnitude()
-		if !AlmostEqual(1, mag) {
+		if !almostEqual(1, mag) {
 			t.Errorf("%+v.Magnitude() = %+v, got %+v", actual, 1, mag)
 		}
 	}
@@ -114,7 +114,7 @@ func TestDotProduct(t *testing.T) {
 	v2 := NewVector(2, 3, 4)
 	actual := DotProduct(v1, v2)
 	expected := float64(20)
-	if !(AlmostEqual(actual, expected)) {
+	if !(almostEqual(actual, expected)) {
 		t.Errorf("DotProduct(%+v, %+v) = %f, got %f", v1, v2, expected, actual)
 	}
 }

@@ -25,5 +25,5 @@ func (c Color) Multiply(c1 Color) Color {
 }
 
 func (c Color) Equals(c1 Color) bool {
-	return AlmostEqual(c.R, c1.R) && AlmostEqual(c.G, c1.G) && AlmostEqual(c.B, c1.B)
+	return almostEqual(c.R, c1.R) && almostEqual(c.G, c1.G) && almostEqual(c.B, c1.B)
 }

@@ -21,5 +21,5 @@ func (p Point) SubtractVector(v Vector) Point {
 }
 
 func (p Point) Equals(p1 Point) bool {
-	return AlmostEqual(p.X, p1.X) && AlmostEqual(p.Y, p1.Y) && AlmostEqual(p.Z, p1.Z)
+	return almostEqual(p.X, p1.X) && almostEqual(p.Y, p1.Y) && almostEqual(p.Z, p1.Z)
 }

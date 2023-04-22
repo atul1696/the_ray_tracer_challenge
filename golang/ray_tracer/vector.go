@@ -13,7 +13,7 @@ func NewVector(X, Y, Z float64) Vector {
 }
 
 func (v Vector) Equals(v1 Vector) bool {
-	return AlmostEqual(v.X, v1.X) && AlmostEqual(v.Y, v1.Y) && AlmostEqual(v.Z, v1.Z)
+	return almostEqual(v.X, v1.X) && almostEqual(v.Y, v1.Y) && almostEqual(v.Z, v1.Z)
 }
 
 func (v Vector) Add(v1 Vector) Vector {
