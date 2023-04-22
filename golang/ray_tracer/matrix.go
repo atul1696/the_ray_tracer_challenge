@@ -61,7 +61,7 @@ func (m Matrix) Transpose() Matrix {
 }
 
 func (m Matrix) Multiply(m1 Matrix) (Matrix, error) {
-	if m.Rows() != m1.Columns() {
+	if m.Columns() != m1.Rows() {
 		return nil, fmt.Errorf("cannot multiply matrices: number of rows %d != number of columns %d]", m1.Rows(), m.Columns())
 	}
 	r, c := m.Rows(), m1.Columns()
@@ -138,4 +138,18 @@ func (m Matrix) Inverse() (Matrix, error) {
 		}
 	}
 	return inverse, nil
+}
+
+func (m Matrix) Point() (Point, error) {
+	if m.Rows() != 4 || m.Columns() != 1 {
+		return Point{}, fmt.Errorf("cannot create Point for %v", m)
+	}
+	return NewPoint(m[0][0], m[1][0], m[2][0]), nil
+}
+
+func (m Matrix) Vector() (Vector, error) {
+	if m.Rows() != 4 || m.Columns() != 1 {
+		return Vector{}, fmt.Errorf("cannot create Point for %v", m)
+	}
+	return NewVector(m[0][0], m[1][0], m[2][0]), nil
 }

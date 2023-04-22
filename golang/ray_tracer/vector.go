@@ -1,6 +1,7 @@
 package ray_tracer
 
 import (
+	"fmt"
 	"math"
 )
 
@@ -55,4 +56,23 @@ func CrossProduct(v1, v2 Vector) Vector {
 		v1.Z*v2.X-v1.X*v2.Z,
 		v1.X*v2.Y-v1.Y*v2.X,
 	)
+}
+
+func (v Vector) Tuple() Matrix {
+	tp := NewTuple(4)
+	tp[0][0] = v.X
+	tp[1][0] = v.Y
+	tp[2][0] = v.Z
+	tp[3][0] = 0.0
+	return tp
+}
+
+func (p Vector) Transform(m Matrix) (Vector, error) {
+	t := p.Tuple()
+	transform, err := m.Multiply(t)
+	if err != nil {
+		return Vector{}, fmt.Errorf("cannot apply transformation to vector, uncompatible matrix [%d, %d]", m.Rows(), m.Columns())
+	}
+	p1, _ := transform.Vector()
+	return p1, nil
 }
