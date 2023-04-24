@@ -1,8 +1,8 @@
 package main
 
 import (
-	"math"
 	"fmt"
+	"math"
 	rt "ray_tracer"
 )
 
@@ -16,7 +16,7 @@ func chapter4() {
 
 	for t := 0; t < 12; t++ {
 		// p, _ := point.Transform(tls)
-		i, j := int(point.X) + 150, int(point.Z) + 150
+		i, j := int(point.X)+150, int(point.Z)+150
 		canvas[i][j] = color
 		point, _ = point.Transform(rot)
 	}

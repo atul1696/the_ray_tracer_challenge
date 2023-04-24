@@ -135,3 +135,20 @@ func TestCrossProduct(t *testing.T) {
 		t.Errorf("CrossProduct(%+v, %+v) = %f, got %f", v1, v2, expected, actual)
 	}
 }
+
+func TestVectorReflect(t *testing.T) {
+	tests := []struct {
+		v        Vector
+		n        Vector
+		expected Vector
+	}{
+		{NewVector(1, -1, 0), NewVector(0, 1, 0), NewVector(1, 1, 0)},
+		{NewVector(0, -1, 0), NewVector(0.707107, 0.707107, 0), NewVector(1, 0, 0)},
+	}
+	for _, test := range tests {
+		actual := test.v.Reflect(test.n)
+		if !test.expected.Equals(actual) {
+			t.Errorf("vector %+v reflect using normal %+v expected %+v got %+v", test.v, test.n, test.expected, actual)
+		}
+	}
+}

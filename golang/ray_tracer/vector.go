@@ -76,3 +76,7 @@ func (p Vector) Transform(m Matrix) (Vector, error) {
 	p1, _ := transform.Vector()
 	return p1, nil
 }
+
+func (v Vector) Reflect(n Vector) Vector {
+	return v.Subtract(n.MultiplyScalar(2 * DotProduct(v, n)))
+}

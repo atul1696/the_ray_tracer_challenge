@@ -33,6 +33,9 @@ func (m Matrix) Rows() int {
 }
 
 func (m Matrix) Columns() int {
+	if len(m) == 0 {
+		return 0
+	}
 	return len(m[0])
 }
 
