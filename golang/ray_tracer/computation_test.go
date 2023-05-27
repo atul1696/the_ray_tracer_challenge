@@ -63,3 +63,14 @@ func TestComputationInside(t *testing.T) {
 		t.Error("inside: expected true, got false")
 	}
 }
+
+func TestComputationOverPoint(t *testing.T) {
+	r := NewRay(NewPoint(0, 0, -5), NewVector(0, 0, 1))
+	s := NewSphere()
+	s.SetTransform(Translate(0, 0, 1))
+	x := NewIntersection(5, s)
+	comps := PrepareComputation(x, r)
+	if !(comps.overPoint.Z < -EPSILON/2) ||!(comps.Point.Z > comps.overPoint.Z) {
+		t.Error("overPoint is not adjusted correctly")
+	}
+}

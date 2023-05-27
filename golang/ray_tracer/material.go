@@ -41,25 +41,30 @@ func (m *Material) SetShininess(s float64) *Material {
 	return m
 }
 
-func Lighting(m Material, p Point, l PointLight, ev, nv Vector) Color {
-	effC := m.Color.Multiply(l.Intensity)
-	lv := l.Position.Subtract(p).Normalize()
-	amb := effC.MultiplyScalar(m.Ambient)
-	dif := NewColor(0, 0, 0)
-	spc := NewColor(0, 0, 0)
+func Lighting(m Material, p Point, light PointLight, eyeVec, normalVec Vector, inShadow bool) Color {
+	effectiveColor := m.Color.Multiply(light.Intensity)
+	ambient := effectiveColor.MultiplyScalar(m.Ambient)
 
-	if ldn := DotProduct(lv, nv); ldn >= 0 {
-		dif = effC.MultiplyScalar(m.Diffuse * ldn)
-		rv := lv.Negate().Reflect(nv)
-		if rde := DotProduct(ev, rv); rde > 0 {
-			var f float64;
-			if almostEqual(1.0, roundFloat(rde, 5)) {
-				f = 1.0
+	if (inShadow) {
+		return ambient
+	}
+
+	diffuse := NewColor(0, 0, 0)
+	specular := NewColor(0, 0, 0)
+
+	lightVec := light.Position.Subtract(p).Normalize()
+	if lightDotNormal := DotProduct(lightVec, normalVec); lightDotNormal >= 0 {
+		diffuse = effectiveColor.MultiplyScalar(m.Diffuse * lightDotNormal)
+		reflectVec := lightVec.Negate().Reflect(normalVec)
+		if reflectDotEye := DotProduct(eyeVec, reflectVec); reflectDotEye > 0 {
+			var factor float64;
+			if almostEqual(1.0, roundFloat(reflectDotEye, 5)) {
+				factor = 1.0
 			} else {
-				f = roundFloat(math.Pow(rde, m.Shininess), 4)
+				factor = roundFloat(math.Pow(reflectDotEye, m.Shininess), 4)
 			}
-			spc = l.Intensity.MultiplyScalar(m.Specular * f)
+			specular = light.Intensity.MultiplyScalar(m.Specular * factor)
 		}
 	}
-	return amb.Add(dif).Add(spc)
+	return ambient.Add(diffuse).Add(specular)
 }

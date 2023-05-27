@@ -1,5 +1,7 @@
 package ray_tracer
 
+const EPSILON = 1e-5
+
 type Computation struct {
 	T float64
 	Object Sphere
@@ -7,6 +9,7 @@ type Computation struct {
 	EyeV Vector
 	NormalV Vector
 	Inside bool
+	overPoint Point
 }
 
 func PrepareComputation(x Intersection, r Ray) Computation {
@@ -18,6 +21,7 @@ func PrepareComputation(x Intersection, r Ray) Computation {
 		inside = true
 		normalV = normalV.Negate()
 	}
+	overPoint := p.AddVector(normalV.MultiplyScalar(EPSILON))
 	return Computation{
 		x.T,
 		x.Shape,
@@ -25,5 +29,6 @@ func PrepareComputation(x Intersection, r Ray) Computation {
 		eyeV,
 		normalV,
 		inside,
+		overPoint,
 	}
 }

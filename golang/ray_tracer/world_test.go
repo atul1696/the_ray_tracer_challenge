@@ -45,7 +45,7 @@ func TestWorldColorAtOutside(t *testing.T) {
 	p := NewPoint(0, 0, -5)
 	w := NewDefaultWorld()
 	tests := []struct {
-		dir Vector
+		dir      Vector
 		expected Color
 	}{
 		{NewVector(0, 1, 0), NewColor(0, 0, 0)},
@@ -62,7 +62,7 @@ func TestWorldColorAtOutside(t *testing.T) {
 
 func TestWorldColorAtInside(t *testing.T) {
 	w := NewDefaultWorld()
-	for i, _ := range w.Shapes {
+	for i := range w.Shapes {
 		w.Shapes[i].Material.SetAmbient(1.0)
 	}
 	r := NewRay(NewPoint(0, 0, 0.75), NewVector(0, 0, -1))
@@ -70,5 +70,44 @@ func TestWorldColorAtInside(t *testing.T) {
 	actual := w.ColorAt(r)
 	if !expected.Equals(actual) {
 		t.Errorf("for ray: %+v, expected %+v got %+v", r, expected, actual)
+	}
+}
+
+func TestWorldPointInShadow(t *testing.T) {
+	w := NewDefaultWorld()
+	tests := []struct {
+		point    Point
+		expected bool
+	}{
+		{NewPoint(0, 10, 0), false},
+		{NewPoint(10, -10, 10), true},
+		{NewPoint(-20, 20, -20), false},
+		{NewPoint(-2, 2, -2), false},
+	}
+
+	for _, test := range tests {
+		actual := w.isInShadow(test.point)
+		if test.expected != actual {
+			t.Errorf("for point: %+v, expected %+v got %+v", test.point, test.expected, actual)
+		}
+	}
+}
+
+func TestWorldShadowShade(t *testing.T) {
+	w := NewWorld()
+	w.SetLight(NewPointLight(NewPoint(0, 0, -10), NewColor(1, 1, 1)))
+	s1 := NewSphere()
+	w.AddShape(s1)
+	s2 := NewSphere()
+	s2.SetTransform(Translate(0, 0, 10))
+	w.AddShape(s2)
+	r := NewRay(NewPoint(0, 0, 5), NewVector(0, 0, 1))
+	x := NewIntersection(4, s2)
+	comp := PrepareComputation(x, r)
+	expected := NewColor(0.1, 0.1, 0.1)
+	actual := w.ShadeHit(comp)
+
+	if !expected.Equals(actual) {
+		t.Errorf("Expected %+v, got %+v", expected, actual)
 	}
 }
