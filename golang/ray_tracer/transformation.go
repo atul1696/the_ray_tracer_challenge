@@ -61,3 +61,24 @@ func Shear(xy, xz, yx, yz, zx, zy float64) Matrix {
 	m[2][1] = zy
 	return m
 }
+
+func ViewTransform(from, to Point, up Vector) Matrix {
+	forward := to.Subtract(from).Normalize()
+	upNormalized := up.Normalize()
+	left := CrossProduct(forward, upNormalized)
+	trueUp := CrossProduct(left, forward)
+	transform := NewMatrix(4, 4)
+	transform[0][0] = left.X
+	transform[0][1] = left.Y
+	transform[0][2] = left.Z
+	transform[1][0] = trueUp.X
+	transform[1][1] = trueUp.Y
+	transform[1][2] = trueUp.Z
+	transform[2][0] = -forward.X
+	transform[2][1] = -forward.Y
+	transform[2][2] = -forward.Z
+	transform[3][3] = 1.0
+
+	transform, _ = transform.Multiply(Translate(-from.X, -from.Y, -from.Z))
+	return transform
+}

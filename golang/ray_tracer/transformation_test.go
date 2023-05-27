@@ -158,6 +158,43 @@ func TestTransformChain(t *testing.T) {
 	checkPointTransform(t, &p, &transform, &expected)
 }
 
+func TestTransformView(t *testing.T) {
+	m := NewMatrix(4, 4)
+	m[0][0] = -0.50709
+	m[0][1] = 0.50709
+	m[0][2] = 0.67612
+	m[0][3] = -2.36643
+	m[1][0] = 0.76772
+	m[1][1] = 0.60609
+	m[1][2] = 0.12122
+	m[1][3] = -2.82843
+	m[2][0] = -0.35857 
+	m[2][1] = 0.59761
+	m[2][2] = -0.71714
+	m[3][3] = float64(1)
+
+	tests := []struct{
+		from, to Point
+		up Vector
+		expected Matrix
+	}{
+		{NewPoint(0, 0, 0), NewPoint(0, 0, -1), NewVector(0, 1, 0), NewIdentityMatrix(4)},
+		{NewPoint(0, 0, 0), NewPoint(0, 0, 1), NewVector(0, 1, 0), Scale(-1, 1, -1)},
+		{NewPoint(0, 0, 8), NewPoint(0, 0, 0), NewVector(0, 1, 0), Translate(0, 0, -8)},
+		{NewPoint(1, 3, 2), NewPoint(4, -2, 8), NewVector(1, 1, 0), m},
+	}
+	for _, test := range tests {
+		actual := ViewTransform(test.from, test.to, test.up)
+		if eq, err := test.expected.Equals(actual); !eq || err != nil {
+			if (err != nil) {
+				t.Errorf("view transfrom using from: %+v, to: %+v, up: %+v got error: %+v", test.from, test.to, test.up, err)
+			} else {
+				t.Errorf("view transfrom using from: %+v, to: %+v, up: %+v expected %+v got %+v", test.from, test.to, test.up, test.expected, actual)
+			}
+		}
+	}
+}
+
 func checkPointTransform(t *testing.T, p *Point, transform *Matrix, expected *Point) {
 	if actual, err := p.Transform(*transform); !(expected.Equals(actual) && err == nil) {
 		if err != nil {

@@ -57,8 +57,8 @@ func TestRayIntersect(t *testing.T) {
 			t.Errorf("expected intersection t %+v for ray with origin %+v, got %+v", test.expected, test.origin, actual)
 		}
 		for _, x := range xs {
-			if !x.s.Equals(s) {
-				t.Errorf("expected intersection object %+v for ray with origin %+v, got %+v", Sphere(s), test.origin, x.s)
+			if !x.Shape.Equals(s) {
+				t.Errorf("expected intersection object %+v for ray with origin %+v, got %+v", Sphere(s), test.origin, x.Shape)
 			}
 		}
 	}

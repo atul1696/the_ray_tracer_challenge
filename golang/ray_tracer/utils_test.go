@@ -15,7 +15,7 @@ func sliceEquals(s1, s2 []float64) bool {
 func floatSlice(xs Intersections) []float64 {
 	fs := make([]float64, 0)
 	for _, x := range xs {
-		fs = append(fs, x.t)
+		fs = append(fs, x.T)
 	}
 	return fs
 }

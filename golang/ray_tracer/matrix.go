@@ -80,6 +80,16 @@ func (m Matrix) Multiply(m1 Matrix) (Matrix, error) {
 	return prod, nil
 }
 
+// Multiply [n, 4] * [4, m] matrices
+// Panics otherwise
+func (m Matrix) Multiply4(m1 Matrix) Matrix {
+	if m.Columns() != 4 || m1.Rows() != 4 {
+		panic("matrix dimensions are invalid, not of the form [n, 4] * [4, m]")
+	}
+	prod, _ := m.Multiply(m1)
+	return prod
+}
+
 func (m Matrix) Determinant() float64 {
 	det := float64(0)
 	if m.Rows() == 2 {

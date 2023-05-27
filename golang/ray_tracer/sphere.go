@@ -2,8 +2,9 @@ package ray_tracer
 
 import "math"
 
-type Sphere struct {
+type Sphere struct{
 	TransformMat Matrix
+	Material Material
 }
 
 func (s Sphere) Equals(s1 Sphere) bool {
@@ -21,11 +22,15 @@ func (s Sphere) Equals(s1 Sphere) bool {
 }
 
 func NewSphere() Sphere {
-	return Sphere{NewIdentityMatrix(4)}
+	return Sphere{NewIdentityMatrix(4), NewMaterial()}
 }
 
 func (s *Sphere) SetTransform(m Matrix) {
 	(*s).TransformMat = m
+}
+
+func (s *Sphere) SetMaterial(m Material) {
+	(*s).Material = m
 }
 
 func (s Sphere) Intersect(r Ray) Intersections {
@@ -47,4 +52,15 @@ func (s Sphere) Intersect(r Ray) Intersections {
 		xs = append(xs, NewIntersection(t, s))
 	}
 	return xs
+}
+
+func (s Sphere) NormatAt(p Point) Vector {
+	t, _ := s.TransformMat.Inverse()
+	o, _ := t.Multiply(p.Tuple())
+	objP, _ := o.Point()
+	objN := objP.Subtract(NewPoint(0, 0, 0))
+	t = t.Transpose()
+	n, _ := t.Multiply(objN.Tuple())
+	wrlN, _ := n.Vector()
+	return wrlN.Normalize()
 }
